@@ -1,0 +1,31 @@
+name: 'Set up conda environment'
+description: 'Set up conda environment using a requirements file'
+inputs:
+  channels:
+    description: 'Conda channels'
+    required: true
+  env-file:
+    description: 'URL with an an environment file'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up env
+      shell: bash -l {0}
+      run: |
+        echo "CONDA=$HOME/miniconda3" >> $GITHUB_ENV
+        echo "CONDA_NUMBER_CHANNEL_NOTICES=0" >> $GITHUB_ENV
+
+    - name: Setup conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: false
+        channels: ${{ inputs.channels }}
+        channel-priority: strict
+
+    - name: Install requirements
+      shell: bash -l {0}
+      run: |
+        curl -n -o requirements.txt ${{ inputs.env-file }}
+        conda install --file requirements.txt
