@@ -7,6 +7,10 @@ inputs:
   env-file:
     description: 'URL with an environment file'
     required: true
+  activate-environment:
+    description: 'See conda-incubator/setup-miniconda, activate-environment for description'
+    required: false
+    default: 'test'
 
 runs:
   using: "composite"
@@ -23,6 +27,7 @@ runs:
         auto-update-conda: false
         channels: ${{ inputs.channels }}
         channel-priority: strict
+        activate-environment: ${{ inputs.activate-environment }}
 
     - name: Install requirements
       shell: bash -l {0}
