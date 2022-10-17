@@ -5,7 +5,7 @@ inputs:
     description: 'Conda channels'
     required: true
   env-file:
-    description: 'URL with an an environment file'
+    description: 'URL with an environment file'
     required: true
 
 runs:
