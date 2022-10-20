@@ -33,4 +33,4 @@ runs:
       shell: bash -l {0}
       run: |
         curl -n -o requirements.txt ${{ inputs.env-file }}
-        conda install --file requirements.txt
+        mamba install --file requirements.txt
